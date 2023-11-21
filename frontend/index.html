@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PetWeightWatch</title>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<script src="https://d3js.org/d3.v6.min.js"></script>
+
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+	<div class="container mx-auto p-8">
+		<h1 class="text-xl font-bold text-center">PetWeightWatch</h1>
+		<div class="mt-8">
+			<label for="pet-select" class="block text-sm font-medium text-gray-700">Wählen Sie Ihr Haustier:</label>
+			<select id="pet-select"
+				class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+				<!-- Optionen werden hier eingefügt -->
+			</select>
+		</div>
+		<div class="mt-4">
+			<label for="pet-weight" class="block text-sm font-medium text-gray-700">Gewicht des Haustiers (in
+				kg):</label>
+			<input type="number" id="pet-weight"
+				class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+		</div>
+		<div class="mt-4">
+			<button id="submit-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Gewicht
+				überprüfen</button>
+		</div>
+		<div class="mt-8">
+			<svg width="100%" height="120PX" id="weightScale"></svg>
+			<div id="legend" class="mt-4 text-center"></div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			async function getPetData() {
+				try {
+					const response = await fetch('http://localhost:8080/pets/all');
+					const petData = await response.json();
+					return petData;
+				} catch (error) {
+					console.error('Error:', error);
+					return null; // oder irgendein Fehler-Handling
+				}
+			}
+
+			// Aufruf der Funktion in einer asynchronen Umgebung
+			(async () => {
+				try {
+					const petData = await getPetData();
+
+					const petSelect = document.getElementById('pet-select');
+					const submitBtn = document.getElementById('submit-btn');
+					const weightInput = document.getElementById('pet-weight');
+
+					for (let pet in petData) {
+						let option = document.createElement('option');
+						option.value = pet;
+						option.textContent = pet;
+						petSelect.appendChild(option);
+					}
+
+					submitBtn.addEventListener('click', function () {
+						const selectedPet = petSelect.value;
+						let weight = parseFloat(weightInput.value);
+
+						let { min, avg, max } = petData[selectedPet];
+						min = parseFloat(min);
+						avg = parseFloat(avg);
+						max = parseFloat(max);
+						if (weight > petData[selectedPet].max) {
+							max = weight;
+						}
+						if (weight < petData[selectedPet].min) {
+							min = weight;
+						}
+						weight = (weight / max) * 100
+						weight = Math.round(weight)
+
+						// legende Hinzufügen
+						const legend = document.getElementById('legend');
+						legend.textContent = `Minimales Gewicht: ${min} kg, Durchschnittsgewicht ${avg} kg, Maximales Gewicht: ${max} kg`;
+
+
+						var svg = d3.select("#weightScale");
+						var svgHtml = document.getElementById('weightScale')
+						svgHtml.innerHTML = '';
+
+
+						min_percent = 0
+						mid_min_avg_percent = ((min + avg) / 2 / max) * 100
+						avg_percent = (avg / max) * 100
+						mid_max_avg_percent = ((max + avg) / 2 / max) * 100
+						max_percent = 100
+
+						var scale = d3.scaleLinear()
+							.domain([min_percent, mid_min_avg_percent, avg_percent, mid_max_avg_percent, max_percent])
+							.range(["red", "orange", "green", "orange", "red"]);
+
+						for (var i = 0; i <= 100; i++) {
+							let color = '';
+							if (weight == i) {
+								color = 'black';
+							} else {
+								color = scale(i);
+							}
+							svg.append("rect")
+								.attr("x", i * 10)  // Position jedes Rechtecks
+								.attr("y", 0)
+								.attr("width", 10)  // Breite jedes Rechtecks
+								.attr("height", 50)
+								.attr("fill", color);  // Füllfarbe basierend auf der Skala
+						}
+					});
+				} catch (error) {
+					console.error('Error beim Abrufen der Daten:', error);
+				}
+			})();
+		});
+
+	</script>
+</body>
+
+</html>
