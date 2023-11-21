@@ -12,7 +12,8 @@ class Factory
 
     private function createPetCallbackHandler(): PetCallbackHandler {
         return new PetCallbackHandler(
-            new DataReader()
+            new DataReader(),
+            new DataWriter()
         );
     }
 }
