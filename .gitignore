@@ -1,0 +1,3 @@
+/backend/code/vendor
+/backend/code/vendor/composer.lock
+.idea

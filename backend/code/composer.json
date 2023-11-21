@@ -1,0 +1,13 @@
+{
+  "name": "oszimt/petweightwatcher",
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "require": {
+    "php": "8.2.*",
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5.2"
+  }
+}

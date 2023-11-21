@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  nginx:
+    build:
+      context: backend/docker/nginx
+      dockerfile: Dockerfile
+    container_name: pet_weight_watcher_nginx
+    volumes:
+      - ./backend/code/public:/var/www/html/public
+    ports:
+      - '80:80'
+
+  php:
+    build:
+      context: backend/docker/php
+      dockerfile: Dockerfile
+    container_name: pet_weight_watcher_php
+    volumes:
+      - ./backend/code:/var/www/html
+
+  composer.install:
+    image: composer/composer
+    volumes:
+      - ./backend/code:/var/www/html
+    container_name: pet_weight_watcher_composer
+    working_dir: /var/www/html
+    command: install
+    depends_on:
+      - php
