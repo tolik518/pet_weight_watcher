@@ -5,9 +5,9 @@ namespace oszimt\petweightwatcher;
 class DataReader
 {
     /**
-     * @param string $filename Name of the CSV file to read
+     * @param string $filename Name des zu lesenden CSV-Files
      *
-     * @return array Returns an array of rows
+     * @return array Gibt ein Array von Zeilen zurück
      */
     public function readCSV(string $filename): array
     {

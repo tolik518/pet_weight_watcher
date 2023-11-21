@@ -5,10 +5,8 @@ namespace oszimt\petweightwatcher;
 class DataWriter
 {
     /**
-     * @param string $filename Name of the CSV file to read
-     * @param array  $data     Array of rows to write to the CSV file
-     *
-     * @return void Returns an array of rows
+     * @param string $filename Name des zu schreibenden CSV-Files
+     * @param array  $data     Array von Zeilen mit Daten zum Schreiben
      */
     public function writeCSV(string $filename, array $data): void
     {

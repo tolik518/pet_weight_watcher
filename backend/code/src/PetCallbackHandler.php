@@ -82,14 +82,13 @@ class PetCallbackHandler {
 
     /**
      * @param string $name    Name des Haustieres
-     * @param float  $gewicht Gewicht des Haustieres
      *
      * Zeigt das durchschnittliche Gewicht eines Haustieres an
      */
-    public function getPetAverageWeight(string $name, float $gewicht): void
+    public function getPetAverageWeight(string $name): void
     {
         $data = $this->dataReader->readCSV('haustiere.csv');
-        $petName = $this->findPetByWeightAndType($data, $gewicht, $name);
+        $petName = $this->findPetByWeightAndType($data, $name);
 
         if ($petName) {
             echo json_encode(['name' => $petName]);
@@ -153,10 +152,9 @@ class PetCallbackHandler {
         echo json_encode($petTypes);
     }
 
-    private function findPetByWeightAndType(array $pets, float $weight = null, string $type = null): ?float
+    private function findPetByWeightAndType(array $pets, string $type = null): ?float
     {
         foreach ($pets as $pet) {
-            //if ($pet['gewicht'] == $weight && strtolower($pet['tierart']) == strtolower($type)) {
             if (strtolower($pet['Tiername']) == strtolower($type)) {
                 return $pet['Durchschnittsgewicht'];
             }
