@@ -21,6 +21,8 @@ Das Frontend kann man öffnen, in dem man einfach die `frontend/index.html`-Date
 Ohne das Backend kann man im Frontend jedoch nichts machen, da die Daten aus dem Backend geladen werden.
 
 ### Backend
+Der Entrypoint ist in der [backend/code/public/index.php](backend/code/public/index.php)-Datei.
+
 Das Backend ist dockerisiert und besteht aus drei Containern.
 Einmal dem PHP-Container, welcher den PHP-Code ausführt und dem Nginx-Container, welcher den PHP-Code ausliefert.
 
@@ -62,3 +64,11 @@ Dabei muss man beachten das man PHP 8.2 verwendet und die Abhängigkeiten, im `b
 │   └── index.html
 └── README.md
 ```
+
+## Tech-Stack
+**Programmiersprachen**: PHP, HTML, CSS, JS  
+**Devops**: Git, Docker, Nginx, Composer
+
+## Demo
+Backend: https://pet-api.returnnull.de/  
+Frontend: https://pet.returnnull.de/
