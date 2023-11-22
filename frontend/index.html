@@ -103,6 +103,11 @@
 							.domain([min_percent, mid_min_avg_percent, avg_percent, mid_max_avg_percent, max_percent])
 							.range(["red", "orange", "green", "orange", "red"]);
 
+						width = window.screen.width;
+						pixel_width = 10;
+						if (width < 1000) {
+							pixel_width = width / 125
+						}
 						for (var i = 0; i <= 100; i++) {
 							let color = '';
 							if (weight == i) {
@@ -111,9 +116,9 @@
 								color = scale(i);
 							}
 							svg.append("rect")
-								.attr("x", i * 10)  // Position jedes Rechtecks
+								.attr("x", i * pixel_width)  // Position jedes Rechtecks
 								.attr("y", 0)
-								.attr("width", 10)  // Breite jedes Rechtecks
+								.attr("width", pixel_width)  // Breite jedes Rechtecks
 								.attr("height", 50)
 								.attr("fill", color);  // Füllfarbe basierend auf der Skala
 						}
