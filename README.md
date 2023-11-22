@@ -1,4 +1,4 @@
-# Pet Weight Watcher
+# ![](./icon_64px.png) Pet Weight Watcher
 
 ## Beschreibung
 
