@@ -1,7 +1,7 @@
 <div align="center">  
 
 # Pet Weight Watcher
-![](./icon_256px.png)
+![](./frontend/icon_256px.png)
 </div>
 
 ## Beschreibung
