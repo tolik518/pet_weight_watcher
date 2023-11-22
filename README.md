@@ -1,4 +1,8 @@
-# ![](./icon_64px.png) Pet Weight Watcher
+<div align="center">  
+
+# Pet Weight Watcher
+![](./icon_256px.png)
+</div>
 
 ## Beschreibung
 
