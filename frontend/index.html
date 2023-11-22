@@ -73,6 +73,7 @@
 						min = parseFloat(min);
 						avg = parseFloat(avg);
 						max = parseFloat(max);
+						max_orig = max;
 						if (weight > petData[selectedPet].max) {
 							max = weight;
 						}
@@ -84,7 +85,7 @@
 
 						// legende Hinzufügen
 						const legend = document.getElementById('legend');
-						legend.textContent = `Minimales Gewicht: ${min} kg, Durchschnittsgewicht ${avg} kg, Maximales Gewicht: ${max} kg`;
+						legend.textContent = `Minimales Gewicht: ${min} kg, Durchschnittsgewicht ${avg} kg, Maximales Gewicht: ${max_orig} kg`;
 
 
 						var svg = d3.select("#weightScale");
