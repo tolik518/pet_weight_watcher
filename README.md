@@ -72,3 +72,6 @@ Dabei muss man beachten das man PHP 8.2 verwendet und die Abhängigkeiten, im `b
 ## Demo
 Backend: https://pet-api.returnnull.de/  
 Frontend: https://pet.returnnull.de/
+
+
+##### Das Logo wurde mit DALL-E generiert und per Hand via Inkscape angepasst
